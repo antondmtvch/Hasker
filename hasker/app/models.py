@@ -24,3 +24,10 @@ class Question(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
 
+
+class Answer(models.Model):
+    text = models.TextField()
+    published_date = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    flag = models.BooleanField(default=None)
+
