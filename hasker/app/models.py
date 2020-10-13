@@ -12,3 +12,8 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     avatar = models.ImageField(upload_to=user_directory_path)
 
+
+class Tag(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+
+
