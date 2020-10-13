@@ -17,3 +17,10 @@ class Tag(models.Model):
     name = models.CharField(max_length=64, unique=True)
 
 
+class Question(models.Model):
+    title = models.CharField(max_length=128)
+    text = models.TextField()
+    create_date = models.DateTimeField(auto_now=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    tags = models.ManyToManyField(Tag)
+
