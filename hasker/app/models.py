@@ -8,7 +8,7 @@ def user_directory_path(instance, filename):
 
 
 class User(AbstractUser):
-    password = models.CharField(max_length=64)
+    password = models.CharField(max_length=256)
     email = models.EmailField(unique=True)
     avatar = models.ImageField(upload_to=user_directory_path)
 
@@ -18,7 +18,7 @@ class Tag(models.Model):
 
 
 class Question(models.Model):
-    title = models.CharField(max_length=128)
+    title = models.CharField(max_length=256)
     text = models.TextField()
     create_date = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
