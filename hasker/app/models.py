@@ -12,9 +12,15 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     avatar = models.ImageField(upload_to=user_directory_path)
 
+    def __str__(self):
+        return f'@{self.username}'
+
 
 class Tag(models.Model):
-    name = models.CharField(max_length=64, unique=True)
+    name = models.CharField(max_length=256, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Question(models.Model):
@@ -24,6 +30,12 @@ class Question(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
 
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ('-create_date', )
+
 
 class Answer(models.Model):
     text = models.TextField()
@@ -31,3 +43,8 @@ class Answer(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     flag = models.BooleanField(default=None)
 
+    def __str__(self):
+        return self.text[:50]
+
+    class Meta:
+        ordering = ('-published_date', )
