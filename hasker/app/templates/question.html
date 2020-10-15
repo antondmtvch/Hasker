@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="card m-2 row col-8">
+        <div class="card-body py-2">
+            <h5>{{ question.title }}</h5>
+            <br/>
+            <div class="row px-1">
+                <p>{{ question.text|linebreaksbr }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
