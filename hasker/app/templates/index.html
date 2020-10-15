@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <div class="container-fluid">
         <div class="row">
@@ -11,7 +10,13 @@
                     <div class="col">
                         {% for item in questions %}
                             <div class="card m-2 row">
-                                <div class="card-body">{{ item.title }}</div>
+                                <div class="card-body py-2">
+                                    <h5>{{ item.title }}</h5>
+                                    <div class="row px-1">
+                                        <a class="btn btn-outline-success my-sm-1" href="{{ item.get_absolute_url }}"
+                                           role="button">Learn more</a>
+                                    </div>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>
