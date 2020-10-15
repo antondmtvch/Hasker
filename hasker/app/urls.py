@@ -1,7 +1,8 @@
 from django.urls import path
 
-from .views import ask_view
+from .views import *
 
 urlpatterns = [
-    path('', ask_view, name='index'),
+    path('', index_view, name='index'),
+    path('question/<int:question_id>/', question_view, name='question'),
 ]
