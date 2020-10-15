@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Question
 
 
-def ask_view(request):
+def index_view(request):
     questions = Question.objects.all()
     ctx = {
         'questions': questions
