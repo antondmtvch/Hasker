@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import *
+from .views import QuestionView, IndexView, CreateQuestion
 
 urlpatterns = [
-    path('', index_view, name='index'),
-    path('question/<int:question_id>/', question_view, name='question'),
-    path('question/new/', ask_question_view, name='ask_question'),
+    path('', IndexView.as_view(), name='index'),
+    path('question/<int:pk>/', QuestionView.as_view(), name='question'),
+    path('question/new/', CreateQuestion.as_view(), name='ask_question'),
 ]
