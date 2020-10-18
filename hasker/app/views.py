@@ -1,12 +1,21 @@
-from django.shortcuts import render, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView
+
 from .models import Question
+from .forms import QuestionForm
 
 
-def index_view(request):
-    questions = Question.objects.all()
-    return render(request, 'index.html', {'questions': questions})
+class IndexView(ListView):
+    model = Question
+    template_name = 'app/index.html'
+    context_object_name = 'questions'
 
 
-def question_view(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'question.html', {'question': question})
+class QuestionView(DetailView):
+    model = Question
+    context_object_name = 'question'
+
+
+class CreateQuestion(CreateView):
+    form_class = QuestionForm
+    template_name = 'app/ask_question.html'
+
