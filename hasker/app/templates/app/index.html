@@ -11,6 +11,7 @@
                         {% for item in questions %}
                             <div class="card m-2 row">
                                 <div class="card-body py-2">
+                                    <p>Published {{ item.create_date|timesince }} ago by <b>{{ item.author }}</b></p>
                                     <h5>{{ item.title }}</h5>
                                     <div class="row px-1">
                                         <a class="btn btn-outline-success my-sm-1" href="{{ item.get_absolute_url }}"
@@ -24,7 +25,7 @@
             </div>
             <div class="col-4">
                 <div class="row">
-                    <button class="btn btn-outline-success my-sm-0" type="submit">Ask</button>
+                    <a class="btn btn-outline-success my-sm-0" href="{% url 'ask_question' %}">Ask</a>
                 </div>
                 <div class="row">
                     <div class="col">

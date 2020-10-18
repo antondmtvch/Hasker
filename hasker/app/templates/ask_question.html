@@ -1,8 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-    <form method="post" action="{% url 'ask_question' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-success my-sm-0">Ask!</button>
-    </form>
-{% endblock %}
