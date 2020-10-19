@@ -17,7 +17,7 @@ class QuestionDetailView(DetailView):
 
 class CreateQuestionView(CreateView):
     form_class = QuestionForm
-    template_name = 'app/ask_question.html'
+    template_name = 'app/create_question.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user

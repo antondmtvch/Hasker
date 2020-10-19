@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form method="post" action="{% url 'ask_question' %}">
+    <form method="post" action="{% url 'create_question' %}">
         {% csrf_token %}
         {{ form.non_fields_errors }}
 
@@ -9,7 +9,7 @@
             <div class="form-group row mt-3">
                 <label class="col-sm-1 col-form-label ml-3">{{ field.label }}</label>
                 <div class="col-sm-5">{{ field }}</div>
-                <div class="invalid-feedback">{{ field.errors }}</div>
+                <div class="invalid-feedback text-danger">{{ field.errors }}</div>
             </div>
         {% endfor %}
 
