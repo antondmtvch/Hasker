@@ -15,7 +15,7 @@ class QuestionView(DetailView):
     context_object_name = 'question'
 
 
-class CreateQuestion(CreateView):
+class CreateQuestionView(CreateView):
     form_class = QuestionForm
     template_name = 'app/ask_question.html'
 
