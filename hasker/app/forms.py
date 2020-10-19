@@ -1,5 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
+
 from .models import Question, Tag
 
 
@@ -17,7 +18,7 @@ class CommaSeparatedTextField(forms.Field):
             if len(values) <= 3:
                 tags = []
                 for tag_name in values:
-                    tag = Tag.objects.get_or_create(name=tag_name)
+                    tag, created = Tag.objects.get_or_create(name=tag_name)
                     tags.append(tag)
                 return tags
             else:
