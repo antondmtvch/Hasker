@@ -13,7 +13,7 @@ class CommaSeparatedTextField(forms.Field):
 
     def to_python(self, value):
         if value:
-            values = [i for i in map(str.strip, value.split(',')) if i]
+            values = [i.lower() for i in map(str.strip, value.split(',')) if i]
             if len(values) <= 3:
                 tags = []
                 for tag_name in values:
