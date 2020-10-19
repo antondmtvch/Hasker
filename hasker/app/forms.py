@@ -8,7 +8,7 @@ QUESTION_FORM_ATTRS = {
 }
 
 
-class CommaSeparatedField(forms.Field):
+class CommaSeparatedTextField(forms.Field):
     widget = forms.TextInput(attrs=QUESTION_FORM_ATTRS)
 
     def to_python(self, value):
@@ -25,7 +25,7 @@ class CommaSeparatedField(forms.Field):
 
 
 class QuestionForm(forms.ModelForm):
-    tags = CommaSeparatedField(required=False)
+    tags = CommaSeparatedTextField(required=False)
 
     class Meta:
         model = Question
