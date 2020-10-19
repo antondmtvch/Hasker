@@ -19,3 +19,6 @@ class CreateQuestionView(CreateView):
     form_class = QuestionForm
     template_name = 'app/ask_question.html'
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
