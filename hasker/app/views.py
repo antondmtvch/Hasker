@@ -10,7 +10,7 @@ class IndexView(ListView):
     context_object_name = 'questions'
 
 
-class QuestionView(DetailView):
+class QuestionDetailView(DetailView):
     model = Question
     context_object_name = 'question'
 
