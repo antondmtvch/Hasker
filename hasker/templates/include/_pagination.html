@@ -1,10 +1,11 @@
-<nav class="pagination-container">
-    <div class="pagination justify-content-center">
-        {% if page_obj.has_previous %}
-            <a class="pagination-newer" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
+{% if page_obj.has_other_pages %}
+    <nav class="pagination-container">
+        <div class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+                <a class="pagination-newer" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
 
-        <span class="pagination-inner">
+            <span class="pagination-inner">
         {% for page_num in page_obj.paginator.page_range %}
             {% if page_obj.number == page_num %}
                 <a class="pagination-active" href="?page={{ page_num }}">{{ page_num }}</a>
@@ -14,8 +15,9 @@
         {% endfor %}
         </span>
 
-        {% if page_obj.has_next %}
-            <a class="pagination-older" href="?page={{ page_obj.next_page_number }}">Next</a>
-        {% endif %}
-    </div>
-</nav>
+            {% if page_obj.has_next %}
+                <a class="pagination-older" href="?page={{ page_obj.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+    </nav>
+{% endif %}
