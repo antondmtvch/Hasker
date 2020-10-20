@@ -35,3 +35,12 @@ class QuestionForm(forms.ModelForm):
             'title': forms.TextInput(attrs=QUESTION_FORM_ATTRS),
             'text': forms.Textarea(attrs=QUESTION_FORM_ATTRS),
         }
+
+
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ('text',)
+        widgets = {
+            'text': forms.Textarea(attrs=QUESTION_FORM_ATTRS)
+        }

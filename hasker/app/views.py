@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Question
 from .forms import QuestionForm
@@ -16,9 +17,10 @@ class QuestionDetailView(DetailView):
     context_object_name = 'question'
 
 
-class CreateQuestionView(CreateView):
+class CreateQuestionView(LoginRequiredMixin, CreateView):
     form_class = QuestionForm
     template_name = 'app/create_question.html'
+    login_url = '/admin/'
 
     def form_valid(self, form):
         form.instance.author = self.request.user

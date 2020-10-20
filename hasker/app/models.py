@@ -28,14 +28,14 @@ class Question(models.Model):
     title = models.CharField(max_length=256)
     text = models.TextField()
     create_date = models.DateTimeField(auto_now=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('question', kwargs={'question_id': self.pk})
+        return reverse('question', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ('-create_date', )

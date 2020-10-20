@@ -2,19 +2,24 @@
 
 {% block content %}
     <form method="post" action="{% url 'create_question' %}">
-        {% csrf_token %}
-        {{ form.non_fields_errors }}
+        <div class="form-col">
+            {% csrf_token %}
+            {{ form.non_fields_errors }}
 
-        {% for field in form %}
-            <div class="form-group row mt-3">
-                <label class="col-sm-1 col-form-label ml-3">{{ field.label }}</label>
-                <div class="col-sm-5">{{ field }}</div>
-                <div class="invalid-feedback text-danger">{{ field.errors }}</div>
+            {% for field in form %}
+                <div class="col-md-4 mb-3">
+                    <label>{{ field.label }}</label>
+                    {% if field.errors %}
+                        <div class="is-invalid ">{{ field }}</div>
+                    {% else %}
+                        <div class="is-valid">{{ field }}</div>
+                    {% endif %}
+                    <div class="invalid-feedback">{{ field.errors }}</div>
+                </div>
+            {% endfor %}
+            <div class="form-col">
+                <button type="submit" class="btn btn-outline-success mx-3 col-1">Ask!</button>
             </div>
-        {% endfor %}
-
-        <div class="form-group row">
-            <button type="submit" class="btn btn-outline-success my-sm-0 mx-4 col-1">Ask!</button>
         </div>
     </form>
 {% endblock %}
