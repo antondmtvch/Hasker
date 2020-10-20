@@ -1,8 +1,14 @@
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Question
-from .forms import QuestionForm, AnswerForm
+from .models import Question, User
+from .forms import QuestionForm, AnswerForm, UserRegisterForm
+
+
+class UserRegisterView(CreateView):
+    model = User
+    form_class = UserRegisterForm
+    template_name = 'app/register_user.html'
 
 
 class IndexView(ListView):
