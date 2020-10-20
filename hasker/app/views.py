@@ -8,6 +8,7 @@ class IndexView(ListView):
     model = Question
     template_name = 'app/index.html'
     context_object_name = 'questions'
+    queryset = Question.objects.select_related('author')
 
 
 class QuestionDetailView(DetailView):
