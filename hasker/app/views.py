@@ -37,7 +37,7 @@ class QuestionDetailView(DetailView):
 class CreateQuestionView(LoginRequiredMixin, CreateView):
     form_class = QuestionForm
     template_name = 'app/create_question.html'
-    login_url = '/admin/'
+    login_url = '/login/'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
