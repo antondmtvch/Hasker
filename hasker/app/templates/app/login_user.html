@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Log In</h1>
+    <form method="post" action="{% url 'login' %}">
+        <div class="form-col">
+            {% csrf_token %}
+            {{ form.non_fields_errors }}
+
+            {% for field in form %}
+                <div class="col-md-4 mb-3">
+                    <label>{{ field.label }}</label>
+                    {% if field.errors %}
+                        <div class="is-invalid ">{{ field }}</div>
+                    {% else %}
+                        <div class="is-valid">{{ field }}</div>
+                    {% endif %}
+                    <div class="invalid-feedback">{{ field.errors }}</div>
+                </div>
+            {% endfor %}
+
+            <div class="form-col">
+                <button type="submit" class="btn btn-outline-success mx-3 col-1">Login</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
