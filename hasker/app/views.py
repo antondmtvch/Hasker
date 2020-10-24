@@ -1,14 +1,24 @@
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Question, User
-from .forms import QuestionForm, AnswerForm, UserRegisterForm
+from .forms import QuestionForm, AnswerForm, UserRegisterForm, UserLoginForm
 
 
 class UserRegisterView(CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = 'app/register_user.html'
+
+
+class UserLoginView(LoginView):
+    form_class = UserLoginForm
+    template_name = 'app/login_user.html'
+
+
+class UserLogoutView(LogoutView):
+    next_page = 'login'
 
 
 class IndexView(ListView):
