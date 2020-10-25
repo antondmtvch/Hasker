@@ -1,8 +1,11 @@
-from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Question, User
+from .models import Question, User, Answer, Like
 from .forms import QuestionForm, AnswerForm, UserRegisterForm, UserLoginForm
 
 
@@ -23,15 +26,37 @@ class UserLogoutView(LogoutView):
 
 class IndexView(ListView):
     model = Question
-    paginate_by = 2
+    paginate_by = 10
     template_name = 'app/index.html'
     context_object_name = 'questions'
     queryset = Question.objects.select_related('author')
 
 
-class QuestionDetailView(DetailView):
-    model = Question
-    context_object_name = 'question'
+class QuestionDetailView(ListView):
+    paginate_by = 5
+    form = AnswerForm
+    template_name = 'app/question_detail.html'
+
+    def get_queryset(self):
+        return get_object_or_404(Question, pk=self.kwargs['pk'])
+
+    def get(self, request, *args, **kwargs):
+        question = self.get_queryset()
+        context = self.get_context_data(object_list=question.get_answers())
+        context['form'] = self.form()
+        context['question'] = question
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        question = self.get_queryset()
+        form = self.form(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.author = request.user
+            answer.question = question
+            answer.flag = True
+            answer.save()
+        return redirect(reverse('question', kwargs={'pk': question.id}))
 
 
 class CreateQuestionView(LoginRequiredMixin, CreateView):
@@ -44,5 +69,21 @@ class CreateQuestionView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class AnswerQuestionView(CreateView):
-    form_class = AnswerForm
+@login_required(login_url=reverse_lazy('login'))
+def like_post(request):
+    user = request.user
+    if request.method == 'POST':
+        answer_id = request.POST.get('answer_id')
+        answer_obj = Answer.objects.get(pk=answer_id)
+        if answer_obj.liked.filter(pk=user.pk):
+            answer_obj.liked.remove(user)
+        else:
+            answer_obj.liked.add(user)
+        like, created = Like.objects.get_or_create(user=user, answer_id=answer_id)
+        if not created:
+            if like.value == 1:
+                like.value = 0
+            else:
+                like.value = 1
+        like.save()
+    return redirect('question', pk=answer_obj.question.pk)

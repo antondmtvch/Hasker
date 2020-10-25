@@ -62,3 +62,6 @@ class AnswerForm(forms.ModelForm):
         widgets = {
             'text': forms.Textarea(attrs=QUESTION_FORM_ATTRS)
         }
+        labels = {
+            'text': 'Your Answer'
+        }

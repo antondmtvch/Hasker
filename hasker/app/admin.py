@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Answer, Question, Tag, User
+from .models import Answer, Question, Tag, User, Like
 
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -27,7 +27,12 @@ class UserAdmin(admin.ModelAdmin):
     list_filter = ('is_staff',)
 
 
+class LikeAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Answer, AnswerAdmin)
 admin.site.register(Tag, TagAdmin)
 admin.site.register(User, UserAdmin)
+admin.site.register(Like, LikeAdmin)

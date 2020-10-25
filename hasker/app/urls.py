@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import QuestionDetailView, IndexView, CreateQuestionView, UserRegisterView, UserLoginView, UserLogoutView
+from .views import QuestionDetailView, IndexView, CreateQuestionView, UserRegisterView, UserLoginView, UserLogoutView, \
+    like_post
 
 urlpatterns = [
     path('', IndexView.as_view(), name='index'),
@@ -9,4 +10,5 @@ urlpatterns = [
     path('logout/', UserLogoutView.as_view(), name='logout'),
     path('question/<int:pk>/', QuestionDetailView.as_view(), name='question'),
     path('question/new/', CreateQuestionView.as_view(), name='create_question'),
+    path('like/', like_post, name='like-post')
 ]
