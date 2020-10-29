@@ -6,14 +6,14 @@
             {% endif %}
 
             <span class="pagination-inner">
-        {% for page_num in page_obj.paginator.page_range %}
-            {% if page_obj.number == page_num %}
-                <a class="pagination-active" href="?page={{ page_num }}">{{ page_num }}</a>
-            {% elif page_num > page_obj.number|add:-3 and page_num < page_obj.number|add:3 %}
-                <a href="?page={{ page_num }}">{{ page_num }}</a>
-            {% endif %}
-        {% endfor %}
-        </span>
+                {% for page_num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == page_num %}
+                        <a class="pagination-active" href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% elif page_num > page_obj.number|add:-3 and page_num < page_obj.number|add:3 %}
+                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% endif %}
+                {% endfor %}
+            </span>
 
             {% if page_obj.has_next %}
                 <a class="pagination-older" href="?page={{ page_obj.next_page_number }}">Next</a>
