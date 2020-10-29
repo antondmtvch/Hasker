@@ -13,9 +13,9 @@
     <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar7">
         <ul class="navbar-nav ml-auto flex-nowrap">
             <li class="nav-item mr-3">
-                <form class="form-inline my-2 my-lg-0">
+                <form class="form-inline my-2 my-lg-0" method="get" action="{% url 'search_question' %}">
                     <label>
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                        <input class="form-control mr-sm-2" name="q" type="text" placeholder="Search">
                     </label>
                     <button class="btn btn-outline-success my-sm-0" type="submit">Search</button>
                 </form>
