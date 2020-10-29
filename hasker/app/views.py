@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 
 from .models import Question, User, Answer, Like
 from .forms import QuestionForm, AnswerForm, UserRegisterForm, UserLoginForm
@@ -87,3 +89,21 @@ def like_post(request):
                 like.value = 1
         like.save()
     return redirect('question', pk=answer_obj.question.pk)
+
+
+class SearchQuestionView(ListView):
+    model = Question
+    template_name = 'app/search_question.html'
+    context_object_name = 'questions'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if not query:
+            return self.model.objects.none()
+        if query.startswith('tag:'):
+            query = query.replace('tag:', '').strip()
+            object_list = self.model.objects.prefetch_related('author').filter(tags__name__exact=query)
+        else:
+            object_list = self.model.objects.prefetch_related('author').filter(
+                Q(title__icontains=query) | Q(text__icontains=query))
+        return object_list
