@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="post" action="{% url 'accounts:register' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-col">
+            <fieldset>
+                {% for field in form %}
+                    <div class="col-md-4 mb-3">
+                        <label>{{ field.label }}</label>
+                        {% if field.errors %}
+                            <div class="is-invalid ">{{ field }}</div>
+                        {% else %}
+                            <div class="is-valid">{{ field }}</div>
+                        {% endif %}
+                        <div class="invalid-feedback">{{ field.errors }}</div>
+                    </div>
+                {% endfor %}
+            </fieldset>
+            <div class="form-col">
+                <button type="submit" class="btn btn-outline-success mx-3 col-1">Register</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
