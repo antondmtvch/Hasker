@@ -1,19 +1,18 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
-
 from .models import User
 
 
-QUESTION_FORM_ATTRS = {
+FORM_ATTRS = {
     'class': 'form-control'
 }
 
 
 class UserRegisterForm(UserCreationForm):
-    username = forms.CharField(max_length=128, label='Username', widget=forms.TextInput(attrs=QUESTION_FORM_ATTRS))
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs=QUESTION_FORM_ATTRS))
-    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs=QUESTION_FORM_ATTRS))
-    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs=QUESTION_FORM_ATTRS))
+    username = forms.CharField(max_length=128, label='Username', widget=forms.TextInput(attrs=FORM_ATTRS))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs=FORM_ATTRS))
+    password2 = forms.CharField(label='Confirm Password', widget=forms.PasswordInput(attrs=FORM_ATTRS))
+    email = forms.EmailField(label='Email', widget=forms.EmailInput(attrs=FORM_ATTRS))
     avatar = forms.ImageField(label='Avatar', widget=forms.FileInput(), required=False)
 
     class Meta:
@@ -22,5 +21,5 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserLoginForm(AuthenticationForm):
-    username = forms.CharField(max_length=128, label='Username', widget=forms.TextInput(attrs=QUESTION_FORM_ATTRS))
-    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs=QUESTION_FORM_ATTRS))
+    username = forms.CharField(max_length=128, label='Username', widget=forms.TextInput(attrs=FORM_ATTRS))
+    password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs=FORM_ATTRS))
