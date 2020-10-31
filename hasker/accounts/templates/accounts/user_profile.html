@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>User Profile</h1>
+    <div class="card mb-3" style="max-width: 750px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="{{ user.get_avatar_url }}" class="card-img" alt="">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ user }}</h5>
+                    <br>
+                    <form method="post" action="{% url 'accounts:profile' %}" enctype='multipart/form-data'>
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-secondary btn-sm">Update profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
