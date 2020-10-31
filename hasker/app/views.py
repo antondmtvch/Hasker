@@ -1,29 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView
-from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
-from .models import Question, User, Answer, Like
-from .forms import QuestionForm, AnswerForm, UserRegisterForm, UserLoginForm
-
-
-class UserRegisterView(CreateView):
-    model = User
-    form_class = UserRegisterForm
-    template_name = 'app/register_user.html'
-
-
-class UserLoginView(LoginView):
-    form_class = UserLoginForm
-    template_name = 'app/login_user.html'
-
-
-class UserLogoutView(LogoutView):
-    next_page = 'login'
+from .models import Question, Answer, Like
+from .forms import QuestionForm, AnswerForm
 
 
 class IndexView(ListView):
@@ -100,8 +83,9 @@ class SearchQuestionView(ListView):
         query = self.request.GET.get('q')
         if not query:
             return self.model.objects.none()
+        query = query.strip()
         if query.startswith('tag:'):
-            query = query.replace('tag:', '').strip()
+            query = query.replace('tag:', '')
             object_list = self.model.objects.prefetch_related('author').filter(tags__name__exact=query)
         else:
             object_list = self.model.objects.prefetch_related('author').filter(
