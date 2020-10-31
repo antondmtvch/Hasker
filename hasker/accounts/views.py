@@ -38,3 +38,13 @@ class UserLoginView(LoginView):
 
 class UserLogoutView(LogoutView):
     next_page = 'accounts:login'
+
+
+class UserProfileView(LoginRequiredMixin, UpdateView):
+    template_name = 'accounts/user_profile.html'
+    model = User
+    fields = ('email', 'avatar')
+    success_url = reverse_lazy('accounts:profile')
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(User, pk=self.request.user.id)
