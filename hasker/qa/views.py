@@ -12,7 +12,7 @@ from .forms import QuestionForm, AnswerForm
 class IndexView(ListView):
     model = Question
     paginate_by = 10
-    template_name = 'app/index.html'
+    template_name = 'qa/index.html'
     context_object_name = 'questions'
     queryset = Question.objects.select_related('author')
 
@@ -20,7 +20,7 @@ class IndexView(ListView):
 class QuestionDetailView(ListView):
     paginate_by = 5
     form = AnswerForm
-    template_name = 'app/question_detail.html'
+    template_name = 'qa/question_detail.html'
 
     def get_queryset(self):
         return get_object_or_404(Question, pk=self.kwargs['pk'])
@@ -46,7 +46,7 @@ class QuestionDetailView(ListView):
 
 class CreateQuestionView(LoginRequiredMixin, CreateView):
     form_class = QuestionForm
-    template_name = 'app/create_question.html'
+    template_name = 'qa/create_question.html'
     login_url = '/login/'
 
     def form_valid(self, form):
@@ -76,7 +76,7 @@ def like_post(request):
 
 class SearchQuestionView(ListView):
     model = Question
-    template_name = 'app/search_question.html'
+    template_name = 'qa/search_question.html'
     context_object_name = 'questions'
 
     def get_queryset(self):
